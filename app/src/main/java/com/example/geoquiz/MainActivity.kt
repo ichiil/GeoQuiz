@@ -4,11 +4,15 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -65,11 +69,35 @@ class MainActivity : ComponentActivity() {
             Text("GeoQuiz", style = MaterialTheme.typography.headlineMedium)
             Spacer(modifier = Modifier.height(40.dp))
             Text(q.text, style = MaterialTheme.typography.titleLarge)
+            Spacer(Modifier.height(60.dp))
+
+            var answered by remember { mutableStateOf(false) }
+            var score by remember { mutableStateOf(0) }
+            if (!answered) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    Button(onClick = {
+                        if (q.answer) score++
+                        answered = true
+                    }) {
+                        Text("TRUE")
+                    }
+
+                    Button(onClick = {
+                        if (!q.answer) score++
+                        answered = true
+                    }) {
+                        Text("FALSE")
+                    }
+                }
+            }
+
+
+
         }
 
-
-
     }
-
 }
 
