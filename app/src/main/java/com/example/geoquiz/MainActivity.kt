@@ -95,19 +95,24 @@ class MainActivity : ComponentActivity() {
             }
 
             Spacer(Modifier.height(40.dp))
-            Button(
-                onClick = {
-                    if (index < questions.lastIndex) {
-                        index++
-                        answered = false
-                    }
-                },
-                enabled = answered,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text("NEXT")
+            var quizFinished by remember { mutableStateOf(false) }
+            if(!quizFinished) {
+                Button(
+                    onClick = {
+                        if (index < questions.lastIndex) {
+                            index++
+                            answered = false
+                        }
+                        if (index == questions.lastIndex) {
+                            quizFinished = true
+                        }
+                    },
+                    enabled = answered,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("NEXT")
+                }
             }
-
         }
 
     }
